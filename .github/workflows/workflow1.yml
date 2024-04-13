@@ -51,11 +51,11 @@ jobs:
         prerelease: false
 
     - name: Upload Release Asset
-          uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: ./result.txt
-            asset_name: result.txt
-            asset_content_type: text/plain
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./result.txt
+        asset_name: result.txt
+        asset_content_type: text/plain
