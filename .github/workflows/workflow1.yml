@@ -28,6 +28,14 @@ jobs:
       id: read_output
       run: echo "::set-output name=result::$(cat result.txt)"
 
+    - name: Check output
+      run: |
+        if [[ -z "${{ steps.output.outputs.text }}" ]]; then
+          echo "The output is empty."
+        else
+          echo "The output is not empty."
+        fi
+
     - name: Create release
       id: create_release
       uses: actions/create-release@v1
