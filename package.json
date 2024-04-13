@@ -4,6 +4,7 @@
   "description": "dh-lottery suggestion by statistics",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/sggnology/dh-lottery-suggestion/issues"
   },
-  "homepage": "https://github.com/sggnology/dh-lottery-suggestion#readme"
+  "homepage": "https://github.com/sggnology/dh-lottery-suggestion#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "type": "module"
 }
