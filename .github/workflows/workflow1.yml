@@ -26,10 +26,7 @@ jobs:
 
     - name: Read output file
       id: read_output
-      run: echo "::set-output name=output::$(cat result.txt)"
-
-    - name: test
-      run: cat result.txt
+      run: echo "::set-output name=result::$(cat result.txt)"
 
     - name: Create release
       id: create_release
@@ -39,11 +36,6 @@ jobs:
       with:
         tag_name: ${{ github.run_id }}
         release_name: Release ${{ github.run_number }}
-        body: |
-          Weekly release
-
-          === 결과는 아래와 같습니다 ===
-          OutPut:
-          ${{ steps.read_output.outputs.output }}
+        body: ${{ steps.read_output.outputs.result }}
         draft: false
         prerelease: false
