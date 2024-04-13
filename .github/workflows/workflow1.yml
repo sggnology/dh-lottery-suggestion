@@ -24,13 +24,12 @@ jobs:
     - name: Run Node.js script and save output
       run: node index.js
 
-    - name: Read output file
-      id: read_output
-      run: echo "::set-output name=output::$(cat result.txt)"
+    - name: Set output
+      run: echo "output=$(cat result.txt)" >> $GITHUB_ENV
 
     - name: Check output
       run: |
-        if [[ -z "${{ steps.output.outputs.output }}" ]]; then
+        if [[ -z "${{ env.output }}" ]]; then
           echo "The output is empty."
         else
           echo "The output is not empty."
