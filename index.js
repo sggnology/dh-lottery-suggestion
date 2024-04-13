@@ -26,6 +26,18 @@ fs.readFile('./resource/excel.xls', { encoding: 'utf8' }, (err, data) => {
 
     });
 
-    const jsonResult = JSON.stringify(countObject, null, 2);
-    console.log(jsonResult);
+    // 객체의 키와 값을 배열로 변환
+    const keyValueArray = Object.entries(countObject);
+
+    // 값을 기준으로 정렬 (오름차순)
+    keyValueArray.sort((a, b) => a[1] - b[1]);
+
+    // 가장 높은 값 7개의 키 추출
+    const topSevenKeys = keyValueArray.slice(-7).map(entry => entry[0]).reverse();
+
+    // 가장 낮은 값 7개의 키 추출
+    const bottomSevenKeys = keyValueArray.slice(0, 7).map(entry => entry[0]);
+
+    console.log("가장 높은 값 7개의 번호:", topSevenKeys);
+    console.log("가장 낮은 값 7개의 번호:", bottomSevenKeys);
 });
