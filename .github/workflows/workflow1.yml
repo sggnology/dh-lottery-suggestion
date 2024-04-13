@@ -1,0 +1,44 @@
+name: Weekly Release
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # 매주 월요일 자정에 실행
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Node.js script and save output
+      run: node your_script.js > output.txt
+
+    - name: Read output file
+      id: read_output
+      run: echo "::set-output name=output::$(cat output.txt)"
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_id }}
+        release_name: Release ${{ github.run_number }}
+        body: |
+          Weekly release
+
+          === 결과는 아래와 같습니다 ===
+          ${{ steps.read_output.outputs.output }}
+        draft: false
+        prerelease: false
