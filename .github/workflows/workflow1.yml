@@ -24,19 +24,19 @@ jobs:
     - name: Run Node.js script and save output
       run: node index.js
 
-    - name: Set output
-      run: |
-        echo "OUTPUT_VAR<<EOF" >> $GITHUB_ENV
-        cat result.txt >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+    # - name: Set output
+    #   run: |
+    #     echo "OUTPUT_VAR<<EOF" >> $GITHUB_ENV
+    #     cat result.txt >> $GITHUB_ENV
+    #     echo "EOF" >> $GITHUB_ENV
 
-    - name: Check output
-      run: |
-        if [[ -z "${{ env.OUTPUT_VAR }}" ]]; then
-          echo "The output is empty."
-        else
-          echo "The output is not empty."
-        fi
+    # - name: Check output
+    #   run: |
+    #     if [[ -z "${{ env.OUTPUT_VAR }}" ]]; then
+    #       echo "The output is empty."
+    #     else
+    #       echo "The output is not empty."
+    #     fi
 
     - name: Create release
       id: create_release
@@ -46,7 +46,8 @@ jobs:
       with:
         tag_name: ${{ github.run_id }}
         release_name: Release ${{ github.run_number }}
-        body: ${{ env.OUTPUT_VAR }}
+        # body: ${{ env.OUTPUT_VAR }}
+        body: "현재 내용을 작성하기 위해 처리중입니다.."
         draft: false
         prerelease: false
 
