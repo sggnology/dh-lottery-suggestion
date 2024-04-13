@@ -22,14 +22,11 @@ jobs:
       run: npm install
 
     - name: Run Node.js script and save output
-      run: node index.js > output.txt
+      run: node index.js
 
     - name: Read output file
       id: read_output
-      run: echo "::set-output name=output::$(cat output.txt)"
-
-    - name: test
-      run: cat output.txt
+      run: echo "::set-output name=output::$(cat result.txt)"
 
     - name: Create release
       id: create_release
