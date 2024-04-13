@@ -3,6 +3,7 @@ name: Weekly Release
 on:
   schedule:
     - cron: '0 0 * * 1' # 매주 월요일 자정에 실행
+  workflow_dispatch:
 
 jobs:
   build:
