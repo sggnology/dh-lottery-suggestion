@@ -28,6 +28,9 @@ jobs:
       id: read_output
       run: echo "::set-output name=output::$(cat result.txt)"
 
+    - name: test
+      run: cat result.txt
+
     - name: Create release
       id: create_release
       uses: actions/create-release@v1
