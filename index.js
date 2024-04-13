@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import extractRecentDhLotteryNumber from './extract-recent-lottery-number.js';
 import { countSameNumbers } from './how-many-same-number.js';
 
+
 fs.readFile('./resource/excel.xls', { encoding: 'utf8' }, async (err, data) => {
     if (err) {
         console.error(err);
@@ -47,10 +48,36 @@ fs.readFile('./resource/excel.xls', { encoding: 'utf8' }, async (err, data) => {
     const thisWeekLotteryNumbers = lotteryJsonResult.numbers;
 
     console.log(lotteryJsonResult)
-    
+
     const topSevenComparison = countSameNumbers(topSevenKeys, thisWeekLotteryNumbers);
     const bottomSevenComparison = countSameNumbers(bottomSevenKeys, thisWeekLotteryNumbers);
 
     console.log("이번 주 로또 번호와 가장 높은 값 7개의 일치 개수:", topSevenComparison);
     console.log("이번 주 로또 번호와 가장 낮은 값 7개의 일치 개수:", bottomSevenComparison);
+
+    const today = new Date();
+    const formattedDate = formatDate(today);
+
+    fs.writeFileSync('result.txt', 
+        `
+        ${formattedDate} 로또 번호 분석 결과
+        
+        이번 주 로또 번호: ${thisWeekLotteryNumbers}
+        (보너스 번호: ${lotteryJsonResult.bouns1})
+        
+        가장 높은 값 7개의 번호: ${topSevenKeys}
+        가장 낮은 값 7개의 번호: ${bottomSevenKeys}
+
+        이번 주 로또 번호와 가장 높은 값 7개의 일치 개수: ${topSevenComparison}
+        이번 주 로또 번호와 가장 낮은 값 7개의 일치 개수: ${bottomSevenComparison}
+        `
+    );
 });
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+}
