@@ -25,11 +25,12 @@ jobs:
       run: node index.js
 
     - name: Set output
+      id: set_output
       run: echo "output=$(cat result.txt)" >> $GITHUB_ENV
 
     - name: Check output
       run: |
-        if [[ -z "${{ env.output }}" ]]; then
+        if [[ -z "${{ steps.set_output.outputs.output }}" ]]; then
           echo "The output is empty."
         else
           echo "The output is not empty."
@@ -43,6 +44,6 @@ jobs:
       with:
         tag_name: ${{ github.run_id }}
         release_name: Release ${{ github.run_number }}
-        body: ${{ steps.read_output.outputs.result }}
+        body: ${{ steps.set_output.outputs.output }}
         draft: false
         prerelease: false
