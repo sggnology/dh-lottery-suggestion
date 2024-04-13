@@ -28,6 +28,9 @@ jobs:
       id: read_output
       run: echo "::set-output name=output::$(cat output.txt)"
 
+    - name: test
+      run: cat output.txt
+
     - name: Create release
       id: create_release
       uses: actions/create-release@v1
@@ -40,6 +43,7 @@ jobs:
           Weekly release
 
           === 결과는 아래와 같습니다 ===
+          OutPut:
           ${{ steps.read_output.outputs.output }}
         draft: false
         prerelease: false
