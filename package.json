@@ -1,0 +1,19 @@
+{
+  "name": "dh-lottery-suggestion",
+  "version": "1.0.0",
+  "description": "dh-lottery suggestion by statistics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sggnology/dh-lottery-suggestion.git"
+  },
+  "author": "sggnology",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sggnology/dh-lottery-suggestion/issues"
+  },
+  "homepage": "https://github.com/sggnology/dh-lottery-suggestion#readme"
+}
