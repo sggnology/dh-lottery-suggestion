@@ -1,7 +1,9 @@
 import fs from 'fs';
 import cheerio from 'cheerio';
+import extractRecentDhLotteryNumber from './extract-recent-lottery-number.js';
+import { countSameNumbers } from './how-many-same-number.js';
 
-fs.readFile('./resource/excel.xls', { encoding: 'utf8' }, (err, data) => {
+fs.readFile('./resource/excel.xls', { encoding: 'utf8' }, async (err, data) => {
     if (err) {
         console.error(err);
         return;
@@ -33,11 +35,22 @@ fs.readFile('./resource/excel.xls', { encoding: 'utf8' }, (err, data) => {
     keyValueArray.sort((a, b) => a[1] - b[1]);
 
     // 가장 높은 값 7개의 키 추출
-    const topSevenKeys = keyValueArray.slice(-7).map(entry => entry[0]).reverse();
+    const topSevenKeys = keyValueArray.slice(-7).map(entry => parseInt(entry[0])).reverse();
 
     // 가장 낮은 값 7개의 키 추출
-    const bottomSevenKeys = keyValueArray.slice(0, 7).map(entry => entry[0]);
+    const bottomSevenKeys = keyValueArray.slice(0, 7).map(entry => parseInt(entry[0]));
 
     console.log("가장 높은 값 7개의 번호:", topSevenKeys);
     console.log("가장 낮은 값 7개의 번호:", bottomSevenKeys);
+
+    const lotteryJsonResult = await extractRecentDhLotteryNumber();
+    const thisWeekLotteryNumbers = lotteryJsonResult.numbers;
+
+    console.log(lotteryJsonResult)
+    
+    const topSevenComparison = countSameNumbers(topSevenKeys, thisWeekLotteryNumbers);
+    const bottomSevenComparison = countSameNumbers(bottomSevenKeys, thisWeekLotteryNumbers);
+
+    console.log("이번 주 로또 번호와 가장 높은 값 7개의 일치 개수:", topSevenComparison);
+    console.log("이번 주 로또 번호와 가장 낮은 값 7개의 일치 개수:", bottomSevenComparison);
 });
