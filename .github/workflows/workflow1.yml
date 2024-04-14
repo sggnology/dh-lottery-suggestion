@@ -31,7 +31,7 @@ jobs:
         RESULT_VAR="${RESULT_VAR//'%'/'%25'}"
         RESULT_VAR="${RESULT_VAR//$'\n'/'%0A'}"
         RESULT_VAR="${RESULT_VAR//$'\r'/'%0D'}"
-        echo "::set-output name=result::$CHANGELOG"
+        echo "::set-output name=result::$RESULT_VAR"
 
     - name: Check output
       run: |
