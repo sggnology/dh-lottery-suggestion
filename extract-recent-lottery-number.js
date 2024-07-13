@@ -1,13 +1,17 @@
 import axios from 'axios';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
+/**
+ * 설명
+ * - 동행복권 메인 페이지에 노출되는 최근 당첨 번호를 추출
+ */
 async function extractRecentDhLotteryNumber(){
     try {
 
-        const dhLotteryMainURL = `https://dhlottery.co.kr/common.do?method=main`
+        const DH_LOTTERY_MAIN_URL = `https://dhlottery.co.kr/common.do?method=main`
 
         // POST 요청 보내기
-        const response = await axios.get(dhLotteryMainURL);
+        const response = await axios.get(DH_LOTTERY_MAIN_URL);
 
         // 응답 받은 HTML을 Cheerio로 로드
         const $ = cheerio.load(response.data);
